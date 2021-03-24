@@ -1,8 +1,5 @@
 # OctoReload
 
-![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/Web-VPF/octoreload?logo=github)
-![Chrome Web Store](https://img.shields.io/chrome-web-store/users/idfbcpnoenglohbnkagghmioonmbphkj?label=Crome%20users&logo=google%20chrome&logoColor=%23dadada)
-
 **OctoReload** - это расширение для браузера Chrome, являющееся настраиваемым LiveReload'ером для сайтов работающих на OctoberCMS.
 
 Данное расширение подойдёт для людей занимающихся созданием контента на сайте. Например вы пишете статью в бэкенде сайта. В другом окне браузера у вас открыта статья на фронте. Каждый раз при сохранении статьи в бэкенде, вкладка браузера со статьёй на фронте будет автоматически обновляться.
