@@ -166,7 +166,7 @@ const optionsApp = {
              */
             let hostBlocks = document.querySelectorAll('.block_domens__item');
             let indexDeletedDomen = [...hostBlocks].indexOf(el.parentNode);
-            
+
             /**
              * Удалить блок настроек для этого домена
              */
@@ -176,7 +176,7 @@ const optionsApp = {
              * Удалить пункт меню для этого домена
              */
             document.querySelectorAll('.navbar li')[indexDeletedDomen + 1].remove();
-            
+
             /**
              * Удалить сам блок хоста
              */
@@ -196,13 +196,13 @@ const optionsApp = {
 
         if (model) {
             switch (model.modelType) {
-                case 'modelItem':       txt = chrome.i18n.getMessage("labelIdSlugCat"); break;
-                case 'modelCategory':   txt = ''; break;
-                case 'modelPath':       txt = chrome.i18n.getMessage("labelPathFront"); break;
+                case 'modelItem':     txt = chrome.i18n.getMessage("labelIdSlugCat"); break;
+                case 'modelCategory': txt = ''; break;
+                case 'modelPath':     txt = chrome.i18n.getMessage("labelPathFront"); break;
             }
         }
         else txt = chrome.i18n.getMessage("labelIdSlugCat");
-        
+
         let categorySlugIdOrPath = model ? model.categorySlugIdOrPath : '';
 
         let tableHide = model ? model.modelType != 'modelCategory' ? 'hide' : '' : 'hide';
@@ -245,7 +245,7 @@ const optionsApp = {
                     <label>${chrome.i18n.getMessage("labelLinkToolbar")}</label>
                 </div>
             </div>
-            
+
             <table class="table table-bordered table-striped ${tableHide}">
                 <thead>
                     <tr>
@@ -281,7 +281,7 @@ const optionsApp = {
 
     modelTypeSelection(e) {
         let el = e.target;
-        
+
         if (el.name === 'modelType') {
             let v = el.value;
 
@@ -345,7 +345,7 @@ const optionsApp = {
                 };
 
                 let models = containers[i+1].querySelectorAll('.model_settings');
-                
+
                 models.forEach((mdl, index) => {
                     params[el.value].models.push(mdl.querySelector('[name="modelName"]').value);
 
@@ -397,7 +397,7 @@ const optionsApp = {
         let isMac = navigator.platform ?
             navigator.platform.toUpperCase().indexOf("MAC")>-1
             :navigator.appVersion.toUpperCase().indexOf("MAC")>-1;
-        
+
         if (e.code == 'KeyS' && ( isMac && e.metaKey || e.ctrlKey)) {
             e.preventDefault();
 
@@ -447,10 +447,10 @@ const optionsApp = {
             chrome.storage.sync.get(sites.hostnames, params => {
                 sites.hostnames.forEach((domen, i) => {
                     this.addHost(domen, i + 1, params[domen].backend, params[domen].vkl);
-                    
+
                     params[domen].models.forEach((mdl, index) => {
                         let modelItem = params[domen]['model_' + index];
-                        
+
                         let modelSettingsBlock = optionsApp.createModelBlock(modelItem);
 
                         document.querySelectorAll('.container')[i + 1].insertBefore(modelSettingsBlock, document.querySelectorAll('.container')[i + 1].querySelector('.btn_addModel'));
@@ -482,7 +482,7 @@ const optionsApp = {
         this.modal.style.display = 'none';
     },
 
-    modalShow(btn) {        
+    modalShow(btn) {
         if (btn.dataset.option) {
             let importBlock = document.querySelector('.block-import');
             let exportBlock = document.querySelector('.block-export');

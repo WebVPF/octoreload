@@ -1,7 +1,7 @@
-const host       = window.location.host;
-const pathURLs   = window.location.pathname.split('/');
-const backend    = pathURLs[1];
-const modelName  = pathURLs[2] + '/' + pathURLs[3] + '/' + pathURLs[4];
+const host      = window.location.host;
+const pathURLs  = window.location.pathname.split('/');
+const backend   = pathURLs[1];
+const modelName = pathURLs[2] + '/' + pathURLs[3] + '/' + pathURLs[4];
 
 if (pathURLs[pathURLs.length - 2] == 'update') {
     chrome.storage.sync.get(['hostnames'], sites => {
@@ -21,7 +21,7 @@ if (pathURLs[pathURLs.length - 2] == 'update') {
                         let indexMdl = objHost.models.indexOf(modelName);
                         let objMdl = objHost['model_' + indexMdl];
                         let slugId = '#' + objHost['model_' + indexMdl]['slugId'];
-                        
+
                         let urlFrontPage;
 
                         if (objMdl.modelType === 'modelItem') {
@@ -31,7 +31,7 @@ if (pathURLs[pathURLs.length - 2] == 'update') {
                             let indexRelationModel = objHost.models.indexOf(relationModel);
                             let categorySlug = objHost['model_' + indexRelationModel].categories[idCategory];
                             let itemSlug = document.querySelector(slugId).value;
-                            
+
                             urlFrontPage = protocol + '//' + host + '/' + categorySlug + '/' + itemSlug;
                         }
                         else if (objMdl.modelType === 'modelCategory') {
@@ -54,7 +54,7 @@ if (pathURLs[pathURLs.length - 2] == 'update') {
                             link.innerHTML = `<a href="${urlFrontPage}" target="_blank" title="${chrome.i18n.getMessage("linkToolbarText")}" rel="noreferrer noopener">
                                     <i class="icon-external-link"></i>
                                 </a>`;
-                            
+
                             let mainmenu_toolbar = document.querySelector('ul.mainmenu-toolbar');
 
                             mainmenu_toolbar.insertBefore(link, mainmenu_toolbar.firstChild);

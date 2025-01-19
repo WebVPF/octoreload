@@ -1,6 +1,6 @@
 {
     "extName": {"message": "OctoReload"},
-    "extDescription": {"message": "Настраиваемый LiveReload для OctoberCMS"},
+    "extDescription": {"message": "Настраиваемый LiveReload для Winter CMS"},
     "setTitle": {"message": "Настройки - OctoReload"},
     "sites": {"message": "Сайты"},
     "sitesDesc": {"message": "Добавьте сайты для которых нужно включить OctoReload. Укажите домен или субдомен без префикса http://. Например: example.com, subdomen.example.com"},
