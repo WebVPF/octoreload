@@ -339,9 +339,9 @@ const optionsApp = {
                 params.hostnames.push(el.value);
 
                 params[el.value] = {
-                    vkl:     document.querySelector('#item_host_' + (i + 1) + '_on').checked,
+                    vkl: document.querySelector('#item_host_' + (i + 1) + '_on').checked,
                     backend: document.querySelectorAll('[name="backendURL"]')[i].value,
-                    models:  []
+                    models: []
                 };
 
                 let models = containers[i+1].querySelectorAll('.model_settings');
@@ -407,7 +407,7 @@ const optionsApp = {
 
     import() {
         function onReaderLoad(event){
-            var params = JSON.parse(event.target.result);           
+            var params = JSON.parse(event.target.result);
 
             let btnImportSave = document.createElement('button');
             btnImportSave.className = 'btnImportSave';
