@@ -19,7 +19,24 @@ const optionsApp = {
     },
 
     activeBtnSave() {
-        this.btnSave.removeAttribute('disabled');
+        if (this.btnSave.hasAttribute('disabled')) {
+            this.btnSave.removeAttribute('disabled');
+
+            window.addEventListener('beforeunload', this.warningUnsavedSettings);
+        }
+    },
+
+    disableBtnSave() {
+        this.btnSave.setAttribute('disabled', '');
+
+        window.removeEventListener('beforeunload', this.warningUnsavedSettings);
+    },
+
+    /**
+     * Предупреждение о несохраненных настройках
+     */
+    warningUnsavedSettings(event) {
+        event.preventDefault();
     },
 
     routeMethods(e) {
@@ -122,7 +139,7 @@ const optionsApp = {
          */
         let container = this.createModelContainer(hostname, backend);
 
-        document.querySelector('.body').insertBefore(container, document.querySelector('#status'));
+        document.querySelector('.body').insertBefore(container, document.getElementById('block_btn_save'));
 
 
         /**
@@ -279,10 +296,6 @@ const optionsApp = {
         }
     },
 
-    /**
-     * TODO
-     * Проверить правильнгость иерархии по parentNode
-     */
     modelTypeSelection(e) {
         let el = e.target;
 
@@ -386,20 +399,26 @@ const optionsApp = {
 
     setOptions(params) {
         chrome.storage.sync.set(params, function() {
-            let status = document.querySelector('#status');
-            status.textContent = chrome.i18n.getMessage('settingsSaveStatus');
-            status.style.display = 'block';
+            let msg = new FlashMessage({
+                type: 'success',
+                text: chrome.i18n.getMessage('settingsSaveStatus'),
+                btn: true
+            });
 
-            window.setTimeout( function() {status.style.display = 'none'}, 750 );
+            document.querySelector('.body').append(msg);
+
+            window.setTimeout(() => {
+                msg.remove();
+            }, 1000);
         });
     },
 
     saveOptions() {
         let params = this.getOptions();
 
-        // console.log(params);
-
         this.setOptions(params);
+
+        this.disableBtnSave();
     },
 
     keyboard(e) {

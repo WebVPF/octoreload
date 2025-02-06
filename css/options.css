@@ -49,6 +49,7 @@ body {
     padding: 20px;
     max-width: 700px;
 }
+.d-none,
 .hide {
     display: none !important;
 }
@@ -61,6 +62,15 @@ h1 {
 h2 {
     font-size: 30px;
 }
+hr {
+    border-color: #747780;
+}
+.mx-auto {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .block_domens__item {
     display: flex;
     align-items: center;
@@ -189,19 +199,6 @@ table input[type="text"] {
 
 
 
-#status {
-    display: none;
-    position: fixed;
-    width: 300px;
-    top: 50px;
-    left: 50%;
-    margin-left: -150px;
-    padding: 15px;
-    text-align: center;
-    background: darkgreen;
-    border: solid 2px #b6b6b6;
-    border-radius: 6px;
-}
 p.note_text {
     margin-top: 0;
     margin-left: 8px;
@@ -209,82 +206,8 @@ p.note_text {
     line-height: 12px;
     color: var(--drk-color-b);
 }
-hr {
-    border-color: #747780;
-}
-.d-none {
-    display: none;
-}
-.mx-auto {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
 input[name="linkToolbar"] {
     width: 21px;
     height: 21px;
     vertical-align: middle;
-}
-
-
-
-.block-buttons {
-    display: block;
-    position: fixed;
-    top: 80px;
-    right: 0;
-}
-.panel-btn {
-    display: block;
-    margin-bottom: 10px;
-    width: 48px;
-    height: 48px;
-    padding: 8px;
-    background: #2f4f4f;
-    color: #ccc;
-    border-width: 1px 0 1px 1px;
-    border-color: #8e8e8e;
-    border-style: solid;
-    border-radius: 5px 0 0 5px;
-}
-.panel-btn:hover {
-    background: #3c6161;
-    color: #fff;
-    cursor: pointer;
-}
-.modal {
-    display: none;
-    position: fixed;
-    width: 300px;
-    height: 300px;
-    border: solid 1px #ccc;
-    top: 50%;
-    left: 50%;
-    transform: translate(0, -50%);
-    background: black;
-    padding: 15px;
-    border-radius: 5px;
-    z-index: 1050;
-}
-.overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #000;
-    opacity: 0.6;
-    z-index: 1000;
-}
-
-.btnImportSave {
-    width: 100%;
-    padding: 11px;
-    background: #4a4a4a;
-    color: #ccc;
-    font-size: 19px;
-    cursor: pointer;
-    border: solid 1px #7b7b7b;
-    border-radius: 5px;
 }

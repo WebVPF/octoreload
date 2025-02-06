@@ -8,44 +8,6 @@ function clearInput() {
     btnClear.classList.add('d-none');
 }
 
-/**
- * Создаёт Flash-сообщение
- * <p class="success flash-message fade in">
- *     The record has been successfully saved.<button type="button" class="close" aria-hidden="true">×</button>
- * </p>
- *
- * @param {Object} params 
- * @param {string} params.type - . success, info, warning, error.
- * @param {string} params.text - Текст сообщения.
- * @param {string} params.time - Время в миллисекундах, через которое сообщение будет удалено из DOM.
- * @returns NodeElement - Flash сообщение, готовое для вставки в DOM.
- */
-function createFlashMessage(params) {
-    let flashMessage = document.createElement('p');
-    flashMessage.classList.add('flash-message', 'fade', 'in');
-
-    if (params.hasOwnProperty('type')) {
-        flashMessage.classList.add(params.type);
-    }
-
-    if (params.hasOwnProperty('text')) {
-        flashMessage.textContent = params.text;
-    }
-
-    let closeBtn = document.createElement('button');
-    closeBtn.classList.add('close');
-    closeBtn.setAttribute('aria-hidden', 'true');
-    closeBtn.textContent = '×';
-
-    flashMessage.append(closeBtn);
-
-    closeBtn.addEventListener('click', () => {
-        flashMessage.remove();
-    });
-
-    return flashMessage;
-}
-
 function saveImportSettings() {
     let file = inputImport.files[0];
 
@@ -57,9 +19,10 @@ function saveImportSettings() {
         let params = JSON.parse(reader.result);
 
         chrome.storage.sync.set(params, function() {
-            let msg = createFlashMessage({
+            let msg = new FlashMessage({
                 type: 'success',
-                text: chrome.i18n.getMessage('settingsSaveStatus')
+                text: chrome.i18n.getMessage('settingsSaveStatus'),
+                btn: true
             });
 
             document.querySelector('.block-import').append(msg);
@@ -68,16 +31,15 @@ function saveImportSettings() {
                 document.location.assign('/pages/options.html')
             }, 1000);
         });
-
-        // clearInput();
     }
 
     reader.onerror = function() {
         console.log(reader.error);
 
-        let msg = createFlashMessage({
+        let msg = new FlashMessage({
             type: 'error',
-            text: 'Произошла ошибка при чтении файла. Настройки не были сохранены.'
+            text: 'Произошла ошибка при чтении файла. Настройки не были сохранены.',
+            btn: true
         });
 
         document.querySelector('.block-import').append(msg);
