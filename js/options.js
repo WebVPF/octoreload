@@ -401,7 +401,7 @@ const optionsApp = {
         chrome.storage.sync.set(params, function() {
             let msg = new FlashMessage({
                 type: 'success',
-                text: chrome.i18n.getMessage('settingsSaveStatus'),
+                text: chrome.i18n.getMessage('settingsSaveSuccess'),
                 btn: true
             });
 

@@ -21,7 +21,7 @@ function saveImportSettings() {
         chrome.storage.sync.set(params, function() {
             let msg = new FlashMessage({
                 type: 'success',
-                text: chrome.i18n.getMessage('settingsSaveStatus'),
+                text: chrome.i18n.getMessage('settingsSaveSuccess'),
                 btn: true
             });
 
@@ -34,11 +34,11 @@ function saveImportSettings() {
     }
 
     reader.onerror = function() {
-        console.log(reader.error);
+        // console.log(reader.error);
 
         let msg = new FlashMessage({
             type: 'error',
-            text: 'Произошла ошибка при чтении файла. Настройки не были сохранены.',
+            text: chrome.i18n.getMessage('settingsSaveError'),
             btn: true
         });
 

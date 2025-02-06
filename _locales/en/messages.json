@@ -29,11 +29,12 @@
     "btnAddCategory": {"message": "Add category"},
     "confirmDeleteCategory": {"message": "Are you sure you want to delete this category?"},
     "btnSave": {"message": "Save Settings"},
-    "settingsSaveStatus": {"message": "Settings have been saved"},
+    "settingsSaveSuccess": {"message": "Settings have been saved"},
+    "settingsSaveError": {"message": "An error occurred while reading the file. The settings were not saved."},
     "exportTitle": {"message": "Export Settings"},
     "exportDesc": {"message": "This option allows you to save the extension settings as a json file on the local computer."},
     "importTitle": {"message": "Import Settings"},
-    "importDesc": {"message": "This option allows you to download a json file containing settings for the Wn-Reload extension. Undo this action is not possible."},
+    "importDesc": {"message": "This option allows you to download a json file containing settings for the Wn-Reload extension."},
     "importLabel": {"message": "Select file to upload."},
     "linkToolbarText": {"message": "Open Record Page"}
 }
