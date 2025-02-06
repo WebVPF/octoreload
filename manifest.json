@@ -29,5 +29,5 @@
         "default_icon": "img/16.png"
     },
     "default_locale": "ru",
-    "options_page": "options.html"
+    "options_page": "pages/options.html"
 }

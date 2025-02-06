@@ -1,9 +1,9 @@
 {
-    "extName": {"message": "OctoReload"},
+    "extName": {"message": "Wn-Reload"},
     "extDescription": {"message": "Настраиваемый LiveReload для Winter CMS"},
-    "setTitle": {"message": "Настройки - OctoReload"},
+    "setTitle": {"message": "Настройки - Wn-Reload"},
     "sites": {"message": "Сайты"},
-    "sitesDesc": {"message": "Добавьте сайты для которых нужно включить OctoReload. Укажите домен или субдомен без префикса http://. Например: example.com, subdomen.example.com"},
+    "sitesDesc": {"message": "Добавьте сайты для которых нужно включить Wn-Reload. Укажите домен или субдомен без префикса http://. Например: example.com, subdomen.example.com"},
     "on": {"message": "ВКЛ"},
     "off": {"message": "ВЫКЛ"},
     "delete": {"message": "Удалить"},
@@ -33,7 +33,7 @@
     "exportTitle": {"message": "Экспорт настроек"},
     "exportDesc": {"message": "Данная опция позволяет сохранить настройки расширения в виде json-файла на локальном компьютере."},
     "importTitle": {"message": "Импорт настроек"},
-    "importDesc": {"message": "Данная опция позволяет загрузить json-файл содержащий настройки для расширения OctoReload. Отменить данное действие не возможно."},
+    "importDesc": {"message": "Данная опция позволяет загрузить json-файл содержащий настройки для расширения Wn-Reload. Отменить данное действие невозможно."},
     "importLabel": {"message": "Выберите файл для загрузки"},
     "linkToolbarText": {"message": "Открыть страницу записи"}
 }

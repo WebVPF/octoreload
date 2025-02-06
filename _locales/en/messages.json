@@ -1,9 +1,9 @@
 {
-    "extName": {"message": "OctoReload"},
+    "extName": {"message": "Wn-Reload"},
     "extDescription": {"message": "Customizable LiveReload for Winter CMS"},
-    "setTitle": {"message": "Settings - OctoReload"},
+    "setTitle": {"message": "Settings - Wn-Reload"},
     "sites": {"message": "Sites"},
-    "sitesDesc": {"message": "Add the sites for which you want to enable OctoReload. Specify a domain or subdomain without the http:// prefix. For example: example.com, subdomen.example.com"},
+    "sitesDesc": {"message": "Add the sites for which you want to enable Wn-Reload. Specify a domain or subdomain without the http:// prefix. For example: example.com, subdomen.example.com"},
     "on": {"message": "ON"},
     "off": {"message": "OFF"},
     "delete": {"message": "Delete"},
@@ -33,7 +33,7 @@
     "exportTitle": {"message": "Export Settings"},
     "exportDesc": {"message": "This option allows you to save the extension settings as a json file on the local computer."},
     "importTitle": {"message": "Import Settings"},
-    "importDesc": {"message": "This option allows you to download a json file containing settings for the OctoReload extension. Undo this action is not possible."},
+    "importDesc": {"message": "This option allows you to download a json file containing settings for the Wn-Reload extension. Undo this action is not possible."},
     "importLabel": {"message": "Select file to upload."},
     "linkToolbarText": {"message": "Open Record Page"}
 }

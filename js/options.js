@@ -1,16 +1,11 @@
 const optionsApp = {
-    navbar:     document.querySelector('.navbar'),
-    listSites:  document.querySelector('#list_sites'),
-    btnAddHost: document.querySelector('#btn_addHost'),
-    btnSave:    document.querySelector('#save'),
-    btnExport:  document.querySelector('#btn_export'),
-    btnImport:  document.querySelector('#btn_import'),
-    btns:       document.querySelectorAll('.panel-btn'),
-    overlay:    document.querySelector('.overlay'),
-    modal:      document.querySelector('.modal'),
+    sidenav:    document.querySelector('.sidenav'),
+    listSites:  document.getElementById('list_sites'),
+    btnAddHost: document.getElementById('btn_addHost'),
+    btnSave:    document.getElementById('save'),
 
     event() {
-        this.navbar.addEventListener('click', this.navigation);
+        this.sidenav.addEventListener('click', this.navigation);
 
         this.btnAddHost.addEventListener('click', this.addHost.bind(this));
         this.listSites.addEventListener('input', this.editHostname);
@@ -21,35 +16,33 @@ const optionsApp = {
 
         this.btnSave.addEventListener('click', this.saveOptions.bind(this));
         document.addEventListener('keydown', this.keyboard.bind(this));
+    },
 
-        this.btns.forEach(btn => btn.addEventListener('click', this.modalShow.bind(this, btn)));
-        this.btnExport.addEventListener('click', this.export);
-        this.btnImport.addEventListener('input', this.import);
-        this.overlay.addEventListener('click', this.overlayHide.bind(this));
+    activeBtnSave() {
+        this.btnSave.removeAttribute('disabled');
     },
 
     routeMethods(e) {
         let el = e.target;
 
-        if (el.className == 'btn_deleteHost') {
+        if (el.classList.contains('btn_deleteHost')) {
             this.deleteHost(el);
+            this.activeBtnSave();
         }
-        else if (el.className == 'btn_addModel') {
+        else if (el.classList.contains('btn_addModel')) {
             this.addModel(el);
         }
-        else if (el.className == 'btn_deleteModel') {
+        else if (el.classList.contains('btn_deleteModel')) {
             this.deleteModel(el);
+            this.activeBtnSave();
         }
-        else if (el.className == 'btn_addCategory') {
+        else if (el.classList.contains('btn_addCategory')) {
             this.addCategory(el);
         }
-        else if (el.className == 'btn_deleteCategory') {
+        else if (el.classList.contains('btn_deleteCategory')) {
             this.deleteCategory(el);
+            this.activeBtnSave();
         }
-    },
-
-    translate(el) {
-        el.querySelectorAll('[data-lang]').forEach(str => str.textContent = chrome.i18n.getMessage(str.dataset.lang));
     },
 
     navigation(e) {
@@ -76,17 +69,20 @@ const optionsApp = {
 
     createHostBlock(hostname, index, vkl) {
         let blockHost = document.createElement('div');
+
         blockHost.className = 'block_domens__item';
+
         blockHost.innerHTML = `
-            <div class="switch">
-                <input id="item_host_${index}_on" class="switch-input" type="radio" name="domen_${index}" data-item="on" ${vkl ? 'checked' : ''}>
-                <label for="item_host_${index}_on" class="switch-label switch-label-on">${chrome.i18n.getMessage("on")}</label>
-                <input id="item_host_${index}_off" class="switch-input" type="radio" name="domen_${index}" data-item="off" ${vkl ? '' : 'checked'}>
-                <label for="item_host_${index}_off" class="switch-label switch-label-off">${chrome.i18n.getMessage("off")}</label>
-                <span class="switch-selection"></span>
-            </div>
+            <label class="custom-switch">
+                <input type="checkbox" id="item_host_${index}" name="domen_${index}" ${vkl ? 'checked' : ''}>
+                <span>
+                    <span>${chrome.i18n.getMessage("on")}</span>
+                    <span>${chrome.i18n.getMessage("off")}</span>
+                </span>
+                <a class="slide-button"></a>
+            </label>
             <input type="text" name="hostname" value="${typeof hostname == 'string' ? hostname : ''}">
-            <div class="btn_deleteHost" title="${chrome.i18n.getMessage("delete")}">×</div>
+            <button class="btn_deleteHost btn btn-danger" title="${chrome.i18n.getMessage("delete")}">×</button>
         `;
 
         return blockHost;
@@ -96,13 +92,13 @@ const optionsApp = {
         let container = document.createElement('div');
         container.classList = 'container hide';
         container.innerHTML = `
-            <h2 class="domen-name">${hostname}</h2>
+            <h1 class="domen-name">${hostname}</h1>
             <div>
                 <span class="label_name">${chrome.i18n.getMessage("txtBackendUrl")}:</span>
                 <input type="text" name="backendURL" value="${backend}">
             </div>
             <h3 class="model-name">${chrome.i18n.getMessage("txtModelsSite")}</h3>
-            <div class="btn_addModel">${chrome.i18n.getMessage("btnAddModel")}</div>
+            <button class="btn_addModel btn btn-default btn-lg btn-block">${chrome.i18n.getMessage("btnAddModel")}</button>
         `;
 
         return container;
@@ -134,7 +130,7 @@ const optionsApp = {
          */
         let itemNav = document.createElement('li');
         itemNav.innerText = typeof hostname == 'string' ? hostname : '';
-        optionsApp.navbar.appendChild(itemNav);
+        optionsApp.sidenav.appendChild(itemNav);
     },
 
     editHostname(e) {
@@ -153,7 +149,7 @@ const optionsApp = {
              */
             let siteName = el.value;
 
-            document.querySelectorAll('.navbar li')[indexEditNameDomen + 1].innerText = siteName;
+            document.querySelectorAll('.sidenav li')[indexEditNameDomen + 1].innerText = siteName;
 
             document.querySelectorAll('.domen-name')[indexEditNameDomen].innerText = siteName;
         }
@@ -175,7 +171,7 @@ const optionsApp = {
             /**
              * Удалить пункт меню для этого домена
              */
-            document.querySelectorAll('.navbar li')[indexDeletedDomen + 1].remove();
+            document.querySelectorAll('.sidenav li')[indexDeletedDomen + 1].remove();
 
             /**
              * Удалить сам блок хоста
@@ -212,6 +208,7 @@ const optionsApp = {
         let modelBlock = document.createElement('div');
         modelBlock.className = 'model_settings';
         modelBlock.innerHTML = `
+            <button class="btn_deleteModel btn btn-danger" title="${chrome.i18n.getMessage("deleteModel")}">×</button>
             <div class="model-options">
                 <div class="model-item-option">
                     <span class="label_name">${chrome.i18n.getMessage("type")}:</span>
@@ -223,14 +220,17 @@ const optionsApp = {
                 </div>
                 <div class="model-item-option">
                     <span class="label_name">${chrome.i18n.getMessage("txtModel")}:</span>
-                    <input type="text" value="${name}" name="modelName">
-                    <div class="btn_deleteModel" title="${chrome.i18n.getMessage("deleteModel")}">×</div>
-                    <p class="note_text">autorName/pluginName/modelName</p>
+                    <div>
+                        <input type="text" value="${name}" name="modelName">
+                        <p class="note_text">authorName/pluginName/modelName</p>
+                    </div>
                 </div>
                 <div class="model-item-option">
                     <span class="label_name">${chrome.i18n.getMessage("txtIdFieldSlug")}:</span>
-                    <input type="text" value="${slugId}" name="slugId">
-                    <p class="note_text">Пример: Form-field-Item-slug</p>
+                    <div>
+                        <input type="text" value="${slugId}" name="slugId">
+                        <p class="note_text">Пример: Form-field-Item-slug</p>
+                    </div>
                 </div>
                 <div class="model-item-option ${model ? model.modelType === 'modelCategory' ? 'hide' : '' : ''}" name="slugIdOrPath-block">
                     <span class="label_name">${txt}:</span>
@@ -257,7 +257,7 @@ const optionsApp = {
                 <tfoot>
                     <tr>
                         <td colspan="3">
-                            <div class="btn_addCategory">${chrome.i18n.getMessage("btnAddCategory")}</div>
+                            <button class="btn_addCategory btn btn-primary">${chrome.i18n.getMessage("btnAddCategory")}</button>
                         </td>
                     </tr>
                 </tfoot>
@@ -275,10 +275,14 @@ const optionsApp = {
 
     deleteModel(el) {
         if (confirm(chrome.i18n.getMessage("confirmDeleteModel"))) {
-            el.parentNode.parentNode.parentNode.remove();
+            el.parentNode.remove();
         }
     },
 
+    /**
+     * TODO
+     * Проверить правильнгость иерархии по parentNode
+     */
     modelTypeSelection(e) {
         let el = e.target;
 
@@ -309,6 +313,8 @@ const optionsApp = {
 
             blockCatOrPath.querySelector('.label_name').textContent = txt;
         }
+
+        optionsApp.activeBtnSave();
     },
 
     addCategory(el) {
@@ -316,7 +322,7 @@ const optionsApp = {
         categoryBlock.innerHTML = `
             <td><input type="number"></td>
             <td><input type="text"></td>
-            <td><div class="btn_deleteCategory" title="${chrome.i18n.getMessage("delete")}">×</div></td>
+            <td><button class="btn_deleteCategory btn btn-danger" title="${chrome.i18n.getMessage("delete")}">×</button></td>
         `;
         el.parentNode.parentNode.parentNode.nextElementSibling.appendChild(categoryBlock);
     },
@@ -339,7 +345,7 @@ const optionsApp = {
                 params.hostnames.push(el.value);
 
                 params[el.value] = {
-                    vkl: document.querySelector('#item_host_' + (i + 1) + '_on').checked,
+                    vkl: document.querySelector(`#item_host_${i + 1}`).checked,
                     backend: document.querySelectorAll('[name="backendURL"]')[i].value,
                     models: []
                 };
@@ -390,6 +396,9 @@ const optionsApp = {
 
     saveOptions() {
         let params = this.getOptions();
+
+        // console.log(params);
+
         this.setOptions(params);
     },
 
@@ -403,43 +412,6 @@ const optionsApp = {
 
             this.saveOptions();
         }
-    },
-
-    import() {
-        function onReaderLoad(event){
-            var params = JSON.parse(event.target.result);
-
-            let btnImportSave = document.createElement('button');
-            btnImportSave.className = 'btnImportSave';
-            btnImportSave.textContent = 'Установить настройки';
-            document.querySelector('.block-import').append(btnImportSave);
-
-            function saveImportSettings() {
-                optionsApp.setOptions(params);
-
-                btnImportSave.removeEventListener('click', saveImportSettings);
-                btnImportSave.remove();
-
-                location.reload();
-            }
-
-            btnImportSave.addEventListener('click', saveImportSettings);
-        }
-
-        var reader = new FileReader();
-        reader.onload = onReaderLoad;
-        reader.readAsText(event.target.files[0]);
-    },
-
-    export() {
-        let params = optionsApp.getOptions();
-
-        let file = new Blob([JSON.stringify(params)], {type: 'text/json'});
-
-        let a = document.createElement('a');
-        a.href = URL.createObjectURL(file);
-        a.download = 'livereload_' + new Date().getTime() + '.json';
-        a.click();
     },
 
     install() {
@@ -462,7 +434,7 @@ const optionsApp = {
                             categoryBlock.innerHTML = `
                                 <td><input type="number" value="${key}"></td>
                                 <td><input type="text" value="${categories[key]}"></td>
-                                <td><div class="btn_deleteCategory" title="${chrome.i18n.getMessage("delete")}">×</div></td>
+                                <td><button class="btn_deleteCategory btn btn-danger" title="${chrome.i18n.getMessage("delete")}">×</button></td>
                             `;
 
                             modelSettingsBlock.querySelector('tbody').appendChild(categoryBlock);
@@ -473,31 +445,7 @@ const optionsApp = {
         })
     },
 
-    overlayHide() {
-        this.modalHide();
-        this.overlay.style.display = 'none';
-    },
-
-    modalHide() {
-        this.modal.style.display = 'none';
-    },
-
-    modalShow(btn) {
-        if (btn.dataset.option) {
-            let importBlock = document.querySelector('.block-import');
-            let exportBlock = document.querySelector('.block-export');
-
-            optionsApp.overlay.style.display = 'block';
-
-            let name = btn.dataset.option;
-            [importBlock, exportBlock].forEach(block => block.classList.contains('block-' + name) ? block.classList.remove('hide') : block.classList.add('hide'));
-
-            optionsApp.modal.style.display = 'block';
-        }
-    },
-
     init() {
-        this.translate(document);
         this.install();
         this.event();
     }
