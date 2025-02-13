@@ -70,10 +70,12 @@ nav ul li a .nav-label {
     text-align: right;
 }
 .nameApp {
+    height: 27px;
     font-size: 27px;
-    color: #fff;
+    line-height: 1;
+    color: #3498db;
 }
 .descApp {
     font-size: 12px;
-    color: #9b9b9b;
+    line-height: 1;
 }
