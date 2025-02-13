@@ -88,10 +88,10 @@ hr {
     border: solid 1px var(--drk-brd-color, #d1d6d9);
 }
 .model_settings:nth-child(odd) {
-    background-color: var(--bgc-b);
+    background-color: var(--bgc-b, #f7fff8);
 }
 .model_settings:nth-child(even) {
-    background-color: var(--drk-bg-color-c);
+    background-color: var(--drk-bg-color-c, #f5fcfd);
 }
 .model-options {
     position: relative;
@@ -139,15 +139,15 @@ select {
     padding: 8px 25px 8px 13px;
     line-height: 1.42857143;
 }
-/* input[name="backendURL"] {
-    width: 485px;
-} */
 span.label_name {
     flex: none;
     width: 190px;
     display: inline-block;
     text-align: right;
     margin-top: 6px;
+}
+span.label_name:has(+ [name="backendURL"]) {
+    width: auto;
 }
 
 
@@ -204,7 +204,7 @@ p.note_text {
     margin-left: 8px;
     font-size: 12px;
     line-height: 12px;
-    color: var(--drk-color-b);
+    color: var(--drk-color-b, #878787);
 }
 input[name="linkToolbar"] {
     width: 21px;
