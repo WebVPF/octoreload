@@ -8,14 +8,17 @@
 class FlashMessage {
     /**
      * @param {Object} params
-     * @param {string} params.type - Тип сообщения: success, info, warning, error.
+     * @param {string} params.type - Тип сообщения: success, info, warning, error. По умолчанию: info
      * @param {string} params.text - Текст сообщения.
-     * @param {boolean} params.btn - С кнопкой закрытия или без
-     * @returns NodeElement - Flash сообщение, готовое для вставки в DOM.
+     * @param {boolean} params.btn - С кнопкой закрытия или без.
+     * @param {number} params.interval - 
+     * @returns NodeElement - Flash-сообщение, готовое для вставки в DOM.
      */
     constructor(params) {
         if (params.hasOwnProperty('type')) {
             this.type = params.type;
+        } else {
+            this.type = 'info';
         }
 
         if (params.hasOwnProperty('text')) {
@@ -24,6 +27,8 @@ class FlashMessage {
 
         if (params.hasOwnProperty('btn')) {
             this.btn = params.btn;
+        } else {
+            this.btn = false;
         }
 
         return this.createFlashMessage();
@@ -31,11 +36,7 @@ class FlashMessage {
 
     createFlashMessage() {
         let message = document.createElement('p');
-        message.classList.add('flash-message', 'fade', 'in');
-
-        if (this.type) {
-            message.classList.add(this.type);
-        }
+        message.classList.add('flash-message', this.type, 'fade', 'in');
 
         if (this.text) {
             message.textContent = this.text;
