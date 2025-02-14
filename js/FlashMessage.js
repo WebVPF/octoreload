@@ -15,7 +15,7 @@ class FlashMessage {
      * @returns NodeElement - Flash-сообщение, готовое для вставки в DOM.
      */
     constructor(params) {
-        if (params.hasOwnProperty('type')) {
+        if (params.hasOwnProperty('type') && ['success', 'warning', 'error'].includes(params.type)) {
             this.type = params.type;
         } else {
             this.type = 'info';
