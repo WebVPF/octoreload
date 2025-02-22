@@ -8,7 +8,7 @@ Wn-Reload не является привычным для разработчик
 
 <!-- ## Установка
 
-Маркет Chrome - https://chrome.google.com/webstore/detail/octoreload/idfbcpnoenglohbnkagghmioonmbphkj -->
+Маркет Chrome - https://chromewebstore.google.com/detail/ -->
 
 ## Настройки
 
